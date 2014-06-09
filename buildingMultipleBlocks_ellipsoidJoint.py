@@ -10,8 +10,7 @@ locInParent = modeling.Vec3(0,-0.07,0)
 locInChild  = modeling.Vec3(0,0.07,0)
 
 
-
-## Block 1
+## Create a body, set name, add geomtry, join with ground and add to model 
 block = modeling.Body()
 block.setName('block')
 joint  = modeling.WeldJoint('grd_block',ground,groundVec3,groundVec3,block,locInChild,groundVec3,0)
@@ -19,37 +18,56 @@ block.addDisplayGeometry('block.vtp')
 block.setJoint(joint)
 model.addBody(block)
 
-## Block 2
-block1 = modeling.Body()
-block1.setName('block1')
-# Define the radii of the ellipsoid joint
-ellipsRadii = modeling.Vec3(0.1,0.2, 0)
-# 
-joint1  = modeling.EllipsoidJoint ('ellipsoid',block,locInParent,groundVec3,block1,locInChild,groundVec3,ellipsRadii ,0)
+## Create a body, set name, add geomtry, join with ground and add to model 
+block2 = modeling.Body()
+block2.setName('block2')
 block1.addDisplayGeometry('block.vtp')
+# Define the radii of an ellipsoid joint
+ellipsRadii = modeling.Vec3(0.8,0.8, 0.8)
+# Define the joint type as ellipsoid
+joint1  = modeling.EllipsoidJoint('ellipsoid',block,locInParent,groundVec3,block1,locInChild,groundVec3,ellipsRadii ,0)
 block1.setJoint(joint1)
 model.addBody(block1)
 
-
-## edit the coordinates
-jc = joint1().upd_CoordinateSet()
+## Edit the min and max range of the Coordinate 
+jc = joint1.upd_CoordinateSet()
 jc.setName('ellipsoidJoint')
-k = -3.14/2
+k = 3.14
 
-coordRange =  modeling.Vec2(k,k)
-
-
-coD = modeling.ArrayDouble.populateFromVector(coordRange)
-
+for i in range(3):
+    jc.get(i).setRangeMax(k)
+    jc.get(i).setRangeMin(-k)
 
 
 
+# get bodySet
+bs = model.getBodySet()
+nBodies = bs.getSize()
 
-for i in range(2):
-    jc.get(0).setRange(coordRange)
-end
+for i in range(1,3):
+    # get body 
+    body = bs.get(i)
+    # update the displayer 
+    displayer = body.updDisplayer()
+    displayer.setShowAxes(1)
+
+
+model.print('ellipsoid.osim')
+
+
 
 loadModel(model)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
