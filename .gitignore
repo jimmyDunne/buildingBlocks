@@ -213,3 +213,22 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+#############
+## OpenSim
+#############
+
+*.mot
+*.osim
+
+#############
+## Matlab
+#############
+
+*.asv
+*.mat
+
+
+
+
+
