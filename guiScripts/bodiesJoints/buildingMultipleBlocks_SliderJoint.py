@@ -1,7 +1,4 @@
 
-
-
-
 model  = modeling.Model()
 ground = model.getBodySet().get(0)
 
@@ -22,29 +19,29 @@ model.addBody(block)
 block2 = modeling.Body()
 block2.setName('block2')
 block1.addDisplayGeometry('block.vtp')
-# Define the radii of an ellipsoid joint
+# Define the radii of an slider joint
 ellipsRadii = modeling.Vec3(0.8,0.8, 0.8)
-# Define the joint type as ellipsoid
-joint1  = modeling.EllipsoidJoint('ellipsoid',block,locInParent,groundVec3,block1,locInChild,groundVec3,ellipsRadii ,0)
+# Define the joint type as slider
+joint1  = modeling.SliderJoint('slider',block,locInParent,groundVec3,block1,locInChild,groundVec3,0)
 block1.setJoint(joint1)
 model.addBody(block1)
 
 ## Edit the min and max range of the Coordinate 
 jc = joint1.upd_CoordinateSet()
-jc.setName('ellipsoidJoint')
+jc.setName('sliderJoint')
 k = 3.14
 
-for i in range(3):
+nCoordinates = model.getCoordinateSet().getSize()
+
+for i in range(nCoordinates):
     jc.get(i).setRangeMax(k)
     jc.get(i).setRangeMin(-k)
-
-
 
 # get bodySet
 bs = model.getBodySet()
 nBodies = bs.getSize()
 
-for i in range(1,3):
+for i in range(1,nCoordinates):
     # get body 
     body = bs.get(i)
     # update the displayer 
@@ -52,25 +49,6 @@ for i in range(1,3):
     displayer.setShowAxes(1)
 
 
-model.print('ellipsoid.osim')
-
-
+model.print('sliderJoint.osim')
 
 loadModel(model)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
