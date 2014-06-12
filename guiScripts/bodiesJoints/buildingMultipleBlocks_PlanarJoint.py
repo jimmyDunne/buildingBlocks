@@ -18,7 +18,7 @@ model.addBody(block)
 ## Create a body, set name, add geomtry, join with ground and add to model 
 block1 = modeling.Body()
 block1.setName('block1')
-joint1  = modeling.PlanarJoint('jnt1',block,locInParent,groundVec3,block1,locInChild,groundVec3,0)
+joint1  = modeling.PlanarJoint('planar',block,locInParent,groundVec3,block1,locInChild,groundVec3,0)
 block1.addDisplayGeometry('block.vtp')
 block1.setJoint(joint1)
 model.addBody(block1)

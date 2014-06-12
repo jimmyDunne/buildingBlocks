@@ -41,7 +41,7 @@ for i in range(nCoordinates):
 bs = model.getBodySet()
 nBodies = bs.getSize()
 
-for i in range(1,nCoordinates):
+for i in range(1,nBodies):
     # get body 
     body = bs.get(i)
     # update the displayer 

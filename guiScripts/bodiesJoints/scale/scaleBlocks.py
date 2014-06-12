@@ -19,19 +19,19 @@ block.setJoint(joint)
 model.addBody(block)
 
 ## Create a body, set name, add geomtry, join with ground and add to model 
-block2 = modeling.Body()
-block2.setName('block2')
+block1 = modeling.Body()
+block1.setName('block2')
 block1.addDisplayGeometry('block.vtp')
-# Define the radii of an ellipsoid joint
+# Define the radii of an ball joint
 ellipsRadii = modeling.Vec3(0.8,0.8, 0.8)
-# Define the joint type as ellipsoid
-joint1  = modeling.EllipsoidJoint('ellipsoid',block,locInParent,groundVec3,block1,locInChild,groundVec3,ellipsRadii ,0)
+# Define the joint type as ball
+joint1  = modeling.BallJoint('ball',block,locInParent,groundVec3,block1,locInChild,groundVec3,0)
 block1.setJoint(joint1)
 model.addBody(block1)
 
 ## Edit the min and max range of the Coordinate 
 jc = joint1.upd_CoordinateSet()
-jc.setName('ellipsoidJoint')
+jc.setName('BallJoint')
 k = 3.14
 
 nCoordinates = model.getCoordinateSet().getSize()
@@ -52,6 +52,20 @@ for i in range(1,nBodies):
     displayer.setShowAxes(1)
 
 
-model.print('ellipsoid.osim')
+
+
+g = modeling.Vec3(1,4,1)
+
+# block1.getScaleFactors(g)
+block1.scale(g,1)
+block.scale(g,1)
+
+
+body = bs.get(0)
+
+
+d
+
+model.print('BallJoint.osim')
 
 loadModel(model)

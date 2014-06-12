@@ -19,8 +19,8 @@ block.setJoint(joint)
 model.addBody(block)
 
 ## Create a body, set name, add geomtry, join with ground and add to model 
-block2 = modeling.Body()
-block2.setName('block2')
+block1 = modeling.Body()
+block1.setName('block2')
 block1.addDisplayGeometry('block.vtp')
 ellipsRadii = modeling.Vec3(0.8,0.8, 0.8)
 joint1  = modeling.UniversalJoint('universalJoint',block,locInParent,groundVec3,block1,locInChild,groundVec3,0)
@@ -32,7 +32,7 @@ jc = joint1.upd_CoordinateSet()
 jc.setName('UniversalJoint')
 k = 3.14
 
-nsCoordinates = model.getCoordinateSet().getSize()
+nCoordinates = model.getCoordinateSet().getSize()
 
 for i in range(nCoordinates):
     jc.get(i).setRangeMax(k)
@@ -42,7 +42,7 @@ for i in range(nCoordinates):
 bs = model.getBodySet()
 nBodies = bs.getSize()
 
-for i in range(1,nCoordinates):
+for i in range(1,nBodies):
     # get body 
     body = bs.get(i)
     # update the displayer 
