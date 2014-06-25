@@ -36,7 +36,7 @@ model.addBody(block1)
 
 ## Edit the min and max range of the Coordinate 
 jc = joint1.upd_CoordinateSet()
-jc.setName('gimbal')
+jc.setName('gimbalJoint')
 nCoordinates = joint1.getCoordinateSet().getSize()
 k = 3.14
 

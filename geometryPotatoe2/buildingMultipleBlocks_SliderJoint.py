@@ -1,4 +1,3 @@
-## Building a block body that is attached to the ground
 
 
 
@@ -19,7 +18,6 @@ block.scale(scalingFactor,1)
 model.addBody(block)
 
 ## Create a body, set name, add geomtry, join with ground and add to model 
-
 groundVec3 = modeling.Vec3(0,0,0)
 locInParent = modeling.Vec3(-0.05, -0.35, -0)
 oriInParent = modeling.Vec3(0,0,0)
@@ -28,17 +26,16 @@ oriInChild = modeling.Vec3(0,1.5,0)
 
 block1 = modeling.Body()
 block1.setName('block1')
-joint1  = modeling.GimbalJoint('gimbalJoint',block,locInParent,oriInParent,block1,locInChild,oriInChild,0)
+# Define the joint type as slider
+joint1  = modeling.SliderJoint('sliderJoint',block,locInParent,oriInParent,block1,locInChild,oriInChild,0)
 block1.addDisplayGeometry('capitate_largeSmoothed.vtp')
 block1.setJoint(joint1)
 block1.scale(scalingFactor,1)
 model.addBody(block1)
-
 ## Edit the min and max range of the Coordinate 
 jc = joint1.upd_CoordinateSet()
-jc.setName('gimbal')
-nCoordinates = joint1.getCoordinateSet().getSize()
-k = 3.14
+jc.setName('slider')
+k = 1
 
 nCoordinates = model.getCoordinateSet().getSize()
 
@@ -57,7 +54,7 @@ for i in range(1,nBodies):
     displayer = body.updDisplayer()
     displayer.setShowAxes(1)
 
-# Print the model
-model.print('gimbalJoint.osim')
-# Load the model in the GUI
+
+model.print('sliderJoint.osim')
+
 loadModel(model)

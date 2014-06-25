@@ -1,4 +1,4 @@
-## Building a block body that is attached to the ground
+
 
 
 
@@ -18,17 +18,20 @@ block.setJoint(joint)
 block.scale(scalingFactor,1)
 model.addBody(block)
 
-## Create a body, set name, add geomtry, join with ground and add to model 
 
+## Create a body, set name, add geomtry, join with ground and add to model 
 groundVec3 = modeling.Vec3(0,0,0)
-locInParent = modeling.Vec3(-0.05, -0.35, -0)
+locInParent = modeling.Vec3(-0.05,0.25,0)
 oriInParent = modeling.Vec3(0,0,0)
-locInChild  = modeling.Vec3(-0.2,0.4,-0.2)
-oriInChild = modeling.Vec3(0,1.5,0)
+locInChild  = modeling.Vec3(0, 0, 0)
+oriInChild = modeling.Vec3(0,0,0)
 
 block1 = modeling.Body()
 block1.setName('block1')
-joint1  = modeling.GimbalJoint('gimbalJoint',block,locInParent,oriInParent,block1,locInChild,oriInChild,0)
+# Define the radii of an ellipsoid joint
+ellipsRadii = modeling.Vec3(-0.8, -1, -0.8)
+# Define the joint type as ellipsoid
+joint1  = modeling.EllipsoidJoint('ellipsoidJoint',block,locInParent,oriInParent,block1,locInChild,oriInChild,ellipsRadii,0)
 block1.addDisplayGeometry('capitate_largeSmoothed.vtp')
 block1.setJoint(joint1)
 block1.scale(scalingFactor,1)
@@ -36,8 +39,7 @@ model.addBody(block1)
 
 ## Edit the min and max range of the Coordinate 
 jc = joint1.upd_CoordinateSet()
-jc.setName('gimbal')
-nCoordinates = joint1.getCoordinateSet().getSize()
+jc.setName('ellipsoidJoint')
 k = 3.14
 
 nCoordinates = model.getCoordinateSet().getSize()
@@ -57,7 +59,7 @@ for i in range(1,nBodies):
     displayer = body.updDisplayer()
     displayer.setShowAxes(1)
 
-# Print the model
-model.print('gimbalJoint.osim')
-# Load the model in the GUI
+
+model.print('ellipsoid.osim')
+
 loadModel(model)
