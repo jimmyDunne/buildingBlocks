@@ -218,8 +218,6 @@ pip-log.txt
 ## OpenSim
 #############
 
-*.mot
-*.osim
 
 #############
 ## Matlab
